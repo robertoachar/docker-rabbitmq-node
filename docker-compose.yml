@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  producer:
+    build:
+      context: ./producer
+      dockerfile: Dockerfile
+    working_dir: /usr/src/app
+    volumes:
+      - ./producer:/usr/src/app
+    networks:
+      - app-network
+    environment:
+      - MESSAGE_QUEUE=amqp://rabbitmq
+    depends_on:
+      - rabbitmq
+
+  consumer:
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    working_dir: /usr/src/app
+    volumes:
+      - ./consumer:/usr/src/app
+    networks:
+      - app-network
+    environment:
+      - MESSAGE_QUEUE=amqp://rabbitmq
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
