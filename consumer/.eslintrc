@@ -1,28 +1,9 @@
 {
-  "extends": "eslint:recommended",
+  "extends": ["plugin:prettier/recommended"],
   "env": {
-    "es6": true,
-    "node": true
+    "es6": true
   },
   "parserOptions": {
     "ecmaVersion": 8
-  },
-  "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
   }
 }
