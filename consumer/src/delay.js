@@ -1,1 +1,1 @@
-module.exports = d => new Promise(r => setTimeout(r, d));
+module.exports = (d) => new Promise((r) => setTimeout(r, d));
