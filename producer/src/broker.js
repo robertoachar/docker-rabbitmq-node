@@ -9,15 +9,15 @@ module.exports.start = async () => {
 
   Array(10)
     .fill()
-    .map(async (i) => {
-      const task = { message: `Task ${i}` };
+    .map(async (x, y) => {
+      const task = { message: `Task ${y}` };
 
       await channel.sendToQueue('tasks', Buffer.from(JSON.stringify(task)), {
         contentType: 'application/json',
         persistent: true
       });
 
-      winston.info(`Task ${i} sent!`);
+      winston.info(`Task ${y} sent!`);
     });
 
   setTimeout(() => {
