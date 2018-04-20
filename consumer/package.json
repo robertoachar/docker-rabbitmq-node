@@ -15,9 +15,7 @@
     "live-reload"
   ],
   "main": "src/index.js",
-  "files": [
-    "src"
-  ],
+  "files": ["src"],
   "scripts": {
     "lint": "eslint src/**/*.js",
     "start": "nodemon src/index.js"
@@ -30,12 +28,17 @@
     "url": "https://github.com/robertoachar/docker-rabbitmq-node/issues"
   },
   "dependencies": {
-    "amqplib": "0.5.1",
-    "winston": "2.4.0"
+    "amqplib": "0.5.2",
+    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-import": "2.11.0",
+    "eslint-plugin-prettier": "2.6.0",
+    "prettier": "1.12.1",
+    "winston": "2.4.2"
   },
   "devDependencies": {
-    "eslint": "4.11.0",
-    "nodemon": "1.12.1"
+    "eslint": "4.19.1",
+    "nodemon": "1.17.3"
   },
   "private": true,
   "license": "MIT"

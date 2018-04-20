@@ -7,16 +7,18 @@ module.exports.start = async () => {
   const channel = await connection.createChannel();
   await channel.assertQueue('tasks', { durable: true });
 
-  for (let i = 1; i <= 10; i++) {
-    const task = { message: `Task ${i}` };
+  Array(10)
+    .fill()
+    .map(async (x, y) => {
+      const task = { message: `Task ${y}` };
 
-    await channel.sendToQueue('tasks', new Buffer(JSON.stringify(task)), {
-      contentType: 'application/json',
-      persistent: true
+      await channel.sendToQueue('tasks', Buffer.from(JSON.stringify(task)), {
+        contentType: 'application/json',
+        persistent: true
+      });
+
+      winston.info(`Task ${y} sent!`);
     });
-
-    winston.info(`Task ${i} sent!`);
-  }
 
   setTimeout(() => {
     connection.close();

@@ -30,7 +30,7 @@ services:
       - rabbitmq
 
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:3.7.4
     networks:
       - app-network
 
