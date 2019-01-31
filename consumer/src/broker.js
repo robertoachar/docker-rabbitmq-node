@@ -7,16 +7,29 @@ module.exports.start = async () => {
   const connection = await amqp.connect(process.env.MESSAGE_QUEUE);
 
   const channel = await connection.createChannel();
-  await channel.assertQueue('tasks', { durable: true });
+
+  /**
+   * Use queue
+   */
+  // const queue = 'tasks';
+  // channel.assertQueue(queue, { durable: true });
+
+  /**
+   * Use exchange
+   */
+  const exchange = 'logs';
+  channel.assertExchange(exchange, 'fanout', { durable: false });
+  const { queue } = await channel.assertQueue('', { exclusive: true });
+  channel.bindQueue(queue, exchange, '');
+
   await channel.prefetch(1);
 
   winston.info('Waiting tasks...');
 
-  channel.consume('tasks', async (message) => {
-    await delay(1000);
+  channel.consume(queue, async (message) => {
+    await delay(100);
 
-    const content = message.content.toString();
-    const task = JSON.parse(content);
+    const task = JSON.parse(message.content.toString());
 
     channel.ack(message);
 
